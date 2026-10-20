@@ -1,18 +1,50 @@
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 24px;
+  background: #c62828;
+}
+
+.menu .logo {
+  margin-right: auto;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.menu a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
 .app {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 24px 16px 48px;
 }
 
 h1 {
   text-align: center;
-  color: #e3350d;
+  color: #c62828;
 }
 
-.liste {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+.recherche {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 24px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #c9d1db;
+  border-radius: 8px;
 }
 
 .message {
@@ -26,27 +58,10 @@ h1 {
   font-weight: 600;
 }
 
-.erreur button {
-  margin-left: 12px;
-  padding: 6px 14px;
-  font: inherit;
-  border: none;
-  border-radius: 8px;
-  background: #c62828;
-  color: #fff;
-  cursor: pointer;
-}
-
-.recherche {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 24px;
-  padding: 10px 14px;
-  font-size: 1rem;
-  border: 1px solid #c9d1db;
-  border-radius: 8px;
+.liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
 }
 
 .pokemon {
@@ -80,6 +95,141 @@ h1 {
   font-weight: 600;
 }
 
-.poids {
+.bouton {
+  display: block;
+  width: fit-content;
+  margin: 12px auto 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #1f2933;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bouton:hover {
+  background: #3e4c59;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.pagination button,
+.formulaire button {
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #c62828;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled,
+.formulaire button:disabled {
+  background: #c9d1db;
   color: #52606d;
+  cursor: not-allowed;
+}
+
+.retour {
+  color: #1f2933;
+  font-weight: 600;
+}
+
+.fiche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px;
+  margin-top: 16px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.fiche img {
+  max-width: 100%;
+  height: auto;
+}
+
+.fiche > div {
+  flex: 1;
+  min-width: 240px;
+}
+
+.fiche h1 {
+  margin: 4px 0;
+  text-align: left;
+}
+
+.numero,
+.categorie {
+  margin: 0;
+  color: #52606d;
+}
+
+.categorie {
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.fiche dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 16px 0;
+}
+
+.fiche dt {
+  font-weight: 600;
+}
+
+.fiche dd {
+  margin: 0;
+}
+
+.description {
+  line-height: 1.5;
+}
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.formulaire h1 {
+  margin: 0 0 8px;
+}
+
+.formulaire label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.formulaire input,
+.formulaire select {
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: normal;
+  border: 1px solid #c9d1db;
+  border-radius: 8px;
 }
