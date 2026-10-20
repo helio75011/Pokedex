@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 
 function PokeDetails() {
@@ -7,6 +7,15 @@ function PokeDetails() {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const [erreur, setErreur] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Revient à la liste telle qu'on l'a quittée (page, recherche).
+  // Si on est arrivé directement sur cette fiche, il n'y a pas de page d'avant : on va à l'accueil
+  function retour() {
+    if (location.key !== "default") navigate(-1);
+    else navigate("/");
+  }
 
   useEffect(() => {
     let ignore = false;
@@ -35,7 +44,9 @@ function PokeDetails() {
   if (erreur) {
     return (
       <div className="details">
-        <Link to="/" className="retour">← Retour à la liste</Link>
+        <button className="retour" onClick={retour}>
+          ← Retour à la liste
+        </button>
         <p className="message erreur">{erreur}</p>
       </div>
     );
@@ -43,7 +54,9 @@ function PokeDetails() {
 
   return (
     <div className="details">
-      <Link to="/" className="retour">← Retour à la liste</Link>
+      <button className="retour" onClick={retour}>
+        ← Retour à la liste
+      </button>
 
       <div className="fiche">
         <img src={pokemon.image} alt={pokemon.nom} width="260" height="260" />

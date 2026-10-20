@@ -25,7 +25,9 @@ function AddPoke() {
     api
       .post("/poke", { nom, element, image, poids: Number(poids), taille: Number(taille) })
       .then((res) => {
-        navigate(`/poke/${res.data.id}`); // affiche la fiche du pokémon créé
+        // Affiche la fiche du pokémon créé. replace : le formulaire sort de l'historique,
+        // « Retour à la liste » ne ramène donc pas au formulaire
+        navigate(`/poke/${res.data.id}`, { replace: true });
       })
       .catch(() => {
         setErreur("Erreur lors de l'ajout du pokémon.");

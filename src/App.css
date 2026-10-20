@@ -141,8 +141,14 @@ h1 {
 }
 
 .retour {
+  padding: 0;
+  border: none;
+  background: none;
   color: #1f2933;
+  font: inherit;
   font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .fiche {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../services/api";
 import PokeCard from "../components/PokeCard";
 import Pagination from "../components/Pagination";
@@ -6,10 +7,14 @@ import Pagination from "../components/Pagination";
 const LIMIT = 12; // nombre de pokémons par page
 
 function Home() {
+  // La page et la recherche sont lues dans l'URL : /?page=3&q=pika
+  // En revenant d'une fiche, on retrouve donc la liste telle qu'on l'a laissée
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Math.max(1, Number(searchParams.get("page")) || 1);
+  const recherche = searchParams.get("q") ?? "";
+
   const [pokemons, setPokemons] = useState([]); // les pokémons de la page affichée
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [recherche, setRecherche] = useState("");
   const [loading, setLoading] = useState(true);
   const [erreur, setErreur] = useState(null);
 
@@ -40,14 +45,16 @@ function Home() {
   function changerPage(nouvellePage) {
     setLoading(true);
     setErreur(null);
-    setPage(nouvellePage);
+    // Nouvelle entrée dans l'historique : le bouton Retour du navigateur revient à la page d'avant
+    setSearchParams(recherche ? { page: nouvellePage, q: recherche } : { page: nouvellePage });
   }
 
   function changerRecherche(texte) {
     setLoading(true);
     setErreur(null);
-    setRecherche(texte);
-    setPage(1); // une nouvelle recherche repart de la première page
+    // Sans "page" dans l'URL, on repart de la page 1.
+    // replace : remplace l'entrée d'historique au lieu d'en ajouter une par lettre tapée
+    setSearchParams(texte ? { q: texte } : {}, { replace: true });
   }
 
   return (
