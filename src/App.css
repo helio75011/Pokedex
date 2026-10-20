@@ -1,5 +1,5 @@
 .app {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 32px 16px;
 }
@@ -11,27 +11,60 @@ h1 {
 
 .liste {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
 
-.vide {
+.message {
   text-align: center;
   font-style: italic;
+}
+
+.erreur {
+  color: #c62828;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.erreur button {
+  margin-left: 12px;
+  padding: 6px 14px;
+  font: inherit;
+  border: none;
+  border-radius: 8px;
+  background: #c62828;
+  color: #fff;
+  cursor: pointer;
+}
+
+.recherche {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 24px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #c9d1db;
+  border-radius: 8px;
 }
 
 .pokemon {
   background: #fff;
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+.pokemon img {
+  display: block;
+  margin: 0 auto 8px;
+}
+
 .pokemon h3 {
-  margin: 0 0 12px;
-  font-size: 1.4rem;
-  text-transform: capitalize;
+  margin: 0 0 8px;
+  font-size: 1.2rem;
 }
 
 .pokemon p {
@@ -40,25 +73,11 @@ h1 {
 
 .element {
   display: inline-block;
-  padding: 4px 14px;
+  padding: 4px 12px;
   border-radius: 999px;
-  color: #fff;
+  background: #e8ecf2;
+  font-size: 0.9rem;
   font-weight: 600;
-  text-transform: capitalize;
-}
-
-/* La couleur dépend de l'élément : la classe vient de la prop "element" */
-.electrique {
-  background: #f2b807;
-  color: #1f2933;
-}
-
-.plante {
-  background: #2e7d32;
-}
-
-.eau {
-  background: #2563eb;
 }
 
 .poids {
