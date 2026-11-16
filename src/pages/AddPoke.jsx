@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Hero from "../components/molecules/Hero";
 import PokeForm from "../components/organisms/PokeForm";
 import { createPokemon } from "../services/api";
 
@@ -27,7 +28,7 @@ function AddPoke() {
 
   return (
     <>
-      <h1>Ajouter un pokémon</h1>
+      <Hero surtitre="Un petit nouveau ?" titre="Ajouter un pokémon" />
       <PokeForm onSubmit={ajouter} enCours={loading} erreur={erreur} />
     </>
   );

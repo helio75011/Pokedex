@@ -1,6 +1,66 @@
+/* Couleurs et polices de tout le site. La palette est reprise du site Aardvark Book Club */
+:root {
+  --noir: #000;
+  --blanc: #fff;
+  --gris: #d4d4d4;
+  --gris-doux: #f2f2f2;
+  --jaune: #ffd24a;
+  --jaune-pale: #faed8f;
+  --orange: #f9a220;
+  --orange-pale: #fbbe63;
+  --orange-doux: #fddaa6;
+  --rouge: #e5383b;
+  --rose: #fd48f2;
+  --rose-pale: #feb6fa;
+  --rose-doux: #ffdbfd;
+  --bordeaux: #670a2e;
+  --bordeaux-doux: #f0e6ea;
+  --violet: #3b308f;
+  --pervenche: #9982de;
+  --pervenche-pale: #c2b4eb;
+  --pervenche-douce: #d7cdf1;
+  --cyan: #1ce8ed;
+  --bleu-pale: #a4f6f8;
+  --bleu-doux: #ddfcfc;
+  --vert: #2de124;
+  --vert-pale: #69fe6f;
+  --vert-doux: #caf7c8;
+  --olive: #857521;
+
+  /* La couleur des actions (boutons, focus, compteur), et seulement d'elles : on comprend
+     vite ce qui se clique. Un bleu, la couleur habituelle des liens et des boutons.
+     Texte blanc dessus : contraste de 5,2 pour 1 (le minimum conseillé est 4,5) */
+  --accent: #2563eb;
+
+  --police: "Bricolage Grotesque", Arial, sans-serif;
+  --police-main: "Caveat", cursive;
+}
+
+/* width et height comptent la bordure et le padding : les tailles sont plus faciles à prévoir */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
-  background: #f2f4f8;
-  color: #1f2933;
+  font-family: var(--police);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--noir);
+  background: var(--blanc);
+}
+
+/* Contour bien visible autour de l'élément choisi au clavier (Tab) */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--blanc);
 }

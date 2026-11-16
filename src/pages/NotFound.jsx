@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import Message from "../components/atoms/Message";
+import Hero from "../components/molecules/Hero";
 
 function NotFound() {
   return (
-    <>
-      <Message>Page introuvable.</Message>
-      <p className="centre">
-        <Link to="/">Retour à l'accueil</Link>
-      </p>
-    </>
+    <Hero surtitre="Erreur 404" titre="Page introuvable">
+      <Link to="/" className="bouton bouton--sombre">
+        Retour à l'accueil
+      </Link>
+    </Hero>
   );
 }
 

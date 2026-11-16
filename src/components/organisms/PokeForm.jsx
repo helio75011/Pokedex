@@ -1,28 +1,8 @@
 import { useState } from "react";
+import { ELEMENTS } from "../../data/elements";
 import Button from "../atoms/Button";
 import Message from "../atoms/Message";
 import FormField from "../molecules/FormField";
-
-const ELEMENTS = [
-  "Acier",
-  "Combat",
-  "Dragon",
-  "Eau",
-  "Électrik",
-  "Fée",
-  "Feu",
-  "Glace",
-  "Insecte",
-  "Normal",
-  "Plante",
-  "Poison",
-  "Psy",
-  "Roche",
-  "Sol",
-  "Spectre",
-  "Ténèbres",
-  "Vol",
-];
 
 // Organisme : le formulaire d'ajout. Il gère ses champs (formulaire contrôlé) et transmet
 // les données à la page, qui s'occupe de l'appel à l'API (onSubmit)

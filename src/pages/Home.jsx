@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Message from "../components/atoms/Message";
+import Hero from "../components/molecules/Hero";
+import Marquee from "../components/molecules/Marquee";
 import Pagination from "../components/molecules/Pagination";
 import SearchBar from "../components/molecules/SearchBar";
 import PokeGrid from "../components/organisms/PokeGrid";
@@ -61,36 +63,40 @@ function Home() {
 
   return (
     <>
-      <h1>Liste des pokémons</h1>
+      <Hero surtitre="Attrapez-les tous !" titre="Liste des pokémons">
+        <SearchBar valeur={recherche} onChange={changerRecherche} total={pret ? total : null} />
+      </Hero>
 
-      <SearchBar valeur={recherche} onChange={changerRecherche} total={pret ? total : null} />
+      <Marquee />
 
-      {loading && <Message>Chargement...</Message>}
+      <div className="panneau">
+        {loading && <Message>Chargement...</Message>}
 
-      {erreur && <Message type="erreur">{erreur}</Message>}
+        {erreur && <Message type="erreur">{erreur}</Message>}
 
-      {pret && pokemons.length === 0 && (
-        <Message>
-          {recherche
-            ? `Aucun pokémon ne correspond à « ${recherche} ».`
-            : "Aucun pokemon disponible."}
-        </Message>
-      )}
+        {pret && pokemons.length === 0 && (
+          <Message>
+            {recherche
+              ? `Aucun pokémon ne correspond à « ${recherche} ».`
+              : "Aucun pokemon disponible."}
+          </Message>
+        )}
 
-      {pret && pokemons.length > 0 && (
-        <>
-          <PokeGrid pokemons={pokemons} />
+        {pret && pokemons.length > 0 && (
+          <>
+            <PokeGrid pokemons={pokemons} />
 
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPrev={() => changerPage(page - 1)}
-            onNext={() => changerPage(page + 1)}
-            disablePrev={page === 1}
-            disableNext={page >= totalPages}
-          />
-        </>
-      )}
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPrev={() => changerPage(page - 1)}
+              onNext={() => changerPage(page + 1)}
+              disablePrev={page === 1}
+              disableNext={page >= totalPages}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 }

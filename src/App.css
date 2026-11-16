@@ -1,100 +1,282 @@
 /* Styles rangés comme les composants (Atomic Design) :
-   atomes → molécules → organismes → template et pages */
+   atomes → molécules → organismes → template et pages.
+   Le style s'inspire du site Aardvark Book Club : couleurs vives, titres énormes,
+   formes en pilule et notes manuscrites. Les couleurs sont dans index.css */
 
 /* ========== Atomes ========== */
 
 .bouton {
-  padding: 8px 16px;
+  display: inline-block;
+  padding: 0.55em 1.25em 0.65em;
   font: inherit;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+  border: 2px solid var(--noir);
+  border-radius: 2em;
   cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    transform 0.15s;
 }
 
 .bouton:disabled {
-  background: #c9d1db;
-  color: #52606d;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .bouton--principal {
-  background: #c62828;
-  color: #fff;
+  background: var(--accent);
+  color: var(--blanc);
 }
 
+.bouton--principal:not(:disabled):hover {
+  background: var(--noir);
+  color: var(--blanc);
+  transform: rotate(-2deg);
+}
+
+/* Pas de rotation ici : le lien des cartes ne doit pas bouger (voir .carte__lien) */
 .bouton--sombre {
-  display: inline-block;
-  background: #1f2933;
-  color: #fff;
-  text-decoration: none;
+  background: var(--noir);
+  color: var(--blanc);
 }
 
 .bouton--sombre:hover {
-  background: #3e4c59;
+  background: var(--accent);
+  color: var(--blanc);
 }
 
 .bouton--lien {
   padding: 0;
   background: none;
-  color: #1f2933;
+  border: none;
+  color: var(--noir);
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .bouton--icone {
-  padding: 0 6px;
-  background: none;
-  color: #52606d;
-  font-size: 1.6rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: var(--blanc);
+  color: var(--noir);
+  font-size: 1.5rem;
   line-height: 1;
-}
-
-.bouton--icone.est-favori {
-  color: #b7791f;
 }
 
 .badge {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: #e8ecf2;
+  padding: 0.3em 0.75em 0.4em;
+  border-radius: 2em;
+  background: var(--type, var(--blanc));
+  color: var(--type-texte, var(--noir));
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Une couleur par type : une vive (badges, mesures) et une douce (fond des images).
+   [data-type^="Plante"] veut dire « commence par Plante » : un pokémon « Plante / Poison »
+   prend donc la couleur de son premier type */
+[data-type] {
+  --type: var(--gris);
+  --type-doux: var(--gris-doux);
+  --type-texte: var(--noir);
+}
+[data-type^="Acier"] {
+  --type: var(--gris);
+  --type-doux: var(--bleu-doux);
+}
+[data-type^="Combat"] {
+  --type: var(--rouge);
+  --type-doux: var(--bordeaux-doux);
+}
+[data-type^="Dragon"] {
+  --type: var(--violet);
+  --type-doux: var(--pervenche-douce);
+  --type-texte: var(--blanc);
+}
+[data-type^="Eau"] {
+  --type: var(--cyan);
+  --type-doux: var(--bleu-doux);
+}
+[data-type^="Électrik"] {
+  --type: var(--jaune);
+  --type-doux: var(--jaune-pale);
+}
+[data-type^="Fée"] {
+  --type: var(--rose-pale);
+  --type-doux: var(--rose-doux);
+}
+[data-type^="Feu"] {
+  --type: var(--orange);
+  --type-doux: var(--orange-doux);
+}
+[data-type^="Glace"] {
+  --type: var(--bleu-pale);
+  --type-doux: var(--bleu-doux);
+}
+[data-type^="Insecte"] {
+  --type: var(--vert-pale);
+  --type-doux: var(--vert-doux);
+}
+[data-type^="Normal"] {
+  --type: var(--jaune-pale);
+  --type-doux: var(--gris-doux);
+}
+[data-type^="Plante"] {
+  --type: var(--vert);
+  --type-doux: var(--vert-doux);
+}
+[data-type^="Poison"] {
+  --type: var(--pervenche);
+  --type-doux: var(--pervenche-douce);
+}
+[data-type^="Psy"] {
+  --type: var(--rose);
+  --type-doux: var(--rose-doux);
+}
+[data-type^="Roche"] {
+  --type: var(--olive);
+  --type-doux: var(--orange-doux);
+  --type-texte: var(--blanc);
+}
+[data-type^="Sol"] {
+  --type: var(--orange-pale);
+  --type-doux: var(--jaune-pale);
+}
+[data-type^="Spectre"] {
+  --type: var(--bordeaux);
+  --type-doux: var(--bordeaux-doux);
+  --type-texte: var(--blanc);
+}
+[data-type^="Ténèbres"] {
+  --type: var(--noir);
+  --type-doux: var(--gris-doux);
+  --type-texte: var(--blanc);
+}
+[data-type^="Vol"] {
+  --type: var(--pervenche-pale);
+  --type-doux: var(--bleu-doux);
 }
 
 .message {
+  margin: 2rem 0;
+  font-family: var(--police-main);
+  font-size: 2rem;
+  line-height: 1.1;
   text-align: center;
-  font-style: italic;
 }
 
 .message--erreur {
-  color: #c62828;
-  font-style: normal;
+  width: fit-content;
+  margin-inline: auto;
+  padding: 0.8em 1.2em;
+  border-radius: 1em;
+  background: var(--rose-doux);
+  color: var(--bordeaux);
+  font-family: var(--police);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Une note écrite à la main, au-dessus des titres et dans le pied de page */
+.manuscrit {
+  margin: 0;
+  font-family: var(--police-main);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 600;
+  line-height: 1;
 }
 
 /* ========== Molécules ========== */
 
-.barre-recherche {
-  max-width: 400px;
-  margin: 0 auto 24px;
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: clamp(2rem, 7vw, 5rem) 0 clamp(2.5rem, 6vw, 4rem);
   text-align: center;
 }
 
-.barre-recherche input {
-  display: block;
-  box-sizing: border-box;
+.hero .manuscrit {
+  transform: rotate(-3deg);
+}
+
+.barre-recherche {
   width: 100%;
-  padding: 10px 14px;
-  font-size: 1rem;
-  border: 1px solid #c9d1db;
-  border-radius: 8px;
+  max-width: 560px;
+  margin-top: 0.75rem;
+}
+
+.barre-recherche input {
+  width: 100%;
+  padding: 0.75em 1.25em 0.8em;
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--noir);
+  background: var(--blanc);
+  border: 2px solid var(--noir);
+  border-radius: 2em;
+  appearance: none;
+}
+
+.barre-recherche input::placeholder {
+  color: #666;
 }
 
 .barre-recherche__total {
-  margin: 8px 0 0;
-  color: #52606d;
-  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+  font-family: var(--police-main);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* La bande déborde de la largeur du contenu (100vw) et penche un peu.
+   Ce qui dépasse de l'écran est coupé par .page (overflow-x: clip) */
+.defilant {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  margin: 0 0 -1.5rem calc(50% - 50vw);
+  padding: 0.9rem 0;
+  overflow: hidden;
+  background: var(--noir);
+  transform: rotate(-2deg) scale(1.02);
+}
+
+.defilant__piste {
+  display: flex;
+  width: max-content;
+  animation: defiler 50s linear infinite;
+}
+
+/* Une marge plutôt qu'un gap : les deux moitiés de la piste ont ainsi exactement
+   la même largeur, et -50 % tombe pile au début de la seconde */
+.defilant .badge {
+  margin-right: 0.75rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+
+@keyframes defiler {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .pagination {
@@ -102,24 +284,28 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 1rem 1.5rem;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .champ {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-weight: 600;
+  gap: 0.4rem;
+  font-weight: 700;
 }
 
 .champ input,
 .champ select {
-  padding: 8px 12px;
+  padding: 0.7em 1em;
   font: inherit;
-  font-weight: normal;
-  border: 1px solid #c9d1db;
-  border-radius: 8px;
+  font-weight: 500;
+  color: var(--noir);
+  background: var(--blanc);
+  border: 2px solid var(--noir);
+  border-radius: 0.75em;
 }
 
 /* ========== Organismes ========== */
@@ -128,78 +314,141 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
-  padding: 14px 24px;
-  background: #c62828;
+  gap: 0.5rem 0.75rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
 }
 
 .menu__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   margin-right: auto;
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+/* Une pokéball dessinée en CSS : un dégradé pour les trois bandes, un autre pour le bouton */
+.menu__logo::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  border: 0.12em solid var(--noir);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--blanc) 0 16%, var(--noir) 16% 30%, transparent 30%),
+    linear-gradient(var(--rouge) 0 42%, var(--noir) 42% 58%, var(--blanc) 58%);
 }
 
 .menu a {
-  color: #fff;
-  font-weight: 600;
+  padding: 0.4em 0.9em 0.5em;
+  border: 2px solid transparent;
+  border-radius: 2em;
+  color: var(--noir);
+  font-weight: 700;
   text-decoration: none;
 }
 
-.menu a:hover,
+.menu a:hover {
+  border-color: var(--noir);
+}
+
 .menu a.active {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  background: var(--noir);
+  color: var(--blanc);
 }
 
 .menu__compteur {
   display: inline-block;
-  min-width: 1.4em;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: #fff;
-  color: #c62828;
+  min-width: 1.5em;
+  margin-left: 0.2em;
+  padding: 0.05em 0.35em 0.1em;
+  border-radius: 2em;
+  background: var(--accent);
+  color: var(--blanc);
   font-size: 0.85rem;
   text-align: center;
 }
 
+/* 12 pokémons par page : 2, 3 ou 4 colonnes tombent toujours juste */
 .grille {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1rem;
+}
+
+@media (min-width: 700px) {
+  .grille {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .grille {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .carte {
   position: relative;
-  padding: 16px;
-  text-align: center;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
-.carte:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+.carte__image {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 0.25rem;
+  border-radius: 1.25rem;
+  background: var(--type-doux);
+  transition: transform 0.25s;
 }
 
-.carte img {
-  display: block;
-  margin: 0 auto 8px;
+.carte__image img {
+  width: 78%;
+  height: auto;
+  transition: transform 0.25s;
 }
 
-.carte h3 {
-  margin: 0 0 8px;
-  font-size: 1.2rem;
+/* Au survol, l'image penche et grossit un peu, comme une carte qu'on prend en main */
+.carte:hover .carte__image,
+.carte:focus-within .carte__image {
+  transform: rotate(-3deg);
+}
+
+.carte:hover .carte__image img,
+.carte:focus-within .carte__image img {
+  transform: scale(1.08);
+}
+
+.carte__numero {
+  margin: 0;
+  font-family: var(--police-main);
+  font-size: 1.5rem;
+  line-height: 0.8;
+}
+
+.carte h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 
 .carte__lien {
-  display: block;
-  width: fit-content;
-  margin: 12px auto 0;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
 }
 
 /* Le lien s'étend sur toute la carte : on peut cliquer n'importe où dessus */
@@ -207,116 +456,203 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 12px;
 }
 
 /* L'étoile reste au-dessus du lien, pour pouvoir cliquer dessus */
 .carte .bouton--icone {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0.6rem;
+  right: 0.6rem;
   z-index: 1;
 }
 
 .formulaire {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 420px;
+  gap: 1.1rem;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 24px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 2rem;
+  background: var(--blanc);
+}
+
+.formulaire .bouton {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .fiche {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 32px;
-  margin-top: 16px;
-  padding: 24px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 1rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  border-radius: 2rem;
+  background: var(--blanc);
 }
 
-.fiche img {
-  max-width: 100%;
+@media (min-width: 800px) {
+  .fiche {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: center;
+  }
+}
+
+.fiche__image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 1.5rem;
+  background: var(--type-doux);
+}
+
+.fiche__image img {
+  width: 80%;
   height: auto;
 }
 
-.fiche > div {
-  flex: 1;
-  min-width: 240px;
-}
-
-.fiche__titre {
+.fiche__infos {
   display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.fiche h1 {
-  margin: 4px 0;
-  text-align: left;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .fiche__numero,
 .fiche__categorie {
   margin: 0;
-  color: #52606d;
+  font-family: var(--police-main);
+  font-size: 2rem;
+  line-height: 0.9;
 }
 
 .fiche__categorie {
-  margin-bottom: 12px;
-  font-style: italic;
+  transform: rotate(-2deg);
 }
 
-.fiche dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 16px;
-  margin: 16px 0;
+.fiche__titre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fiche h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  overflow-wrap: anywhere;
+}
+
+.fiche__mesures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.fiche__mesures div {
+  padding: 0.7em 1.2em 0.8em;
+  border-radius: 1.25rem;
+  background: var(--type);
+  color: var(--type-texte);
 }
 
 .fiche dt {
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .fiche dd {
   margin: 0;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .fiche__description {
-  line-height: 1.5;
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.pied {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  padding: clamp(2rem, 5vw, 3rem) 1rem 1.5rem;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--noir);
+  color: var(--blanc);
+}
+
+/* Le nom du site, en très grand, sur toute la largeur */
+.pied__logo {
+  margin: 0;
+  color: var(--blanc);
+  font-size: 20vw;
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+
+.pied__bas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 2rem;
+  max-width: 1200px;
+  margin: 2rem auto 0;
+}
+
+.pied__bas p {
+  margin: 0;
+}
+
+.pied a {
+  color: var(--blanc);
 }
 
 /* ========== Template et pages ========== */
 
+/* Le pied de page reste en bas, même quand la page est presque vide */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
 .contenu {
-  max-width: 1000px;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 0 1rem;
+}
+
+.panneau {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+  border-radius: 2rem;
+  background: var(--blanc);
 }
 
 h1 {
-  text-align: center;
-  color: #c62828;
-}
-
-.centre {
-  text-align: center;
+  margin: 0;
+  font-size: clamp(3rem, 11vw, 8rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
 /* Pas d'animation pour les personnes qui ont demandé moins de mouvement */
 @media (prefers-reduced-motion: reduce) {
-  .carte {
-    transition: none;
-  }
-
-  .carte:hover {
-    transform: none;
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

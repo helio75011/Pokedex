@@ -81,10 +81,12 @@ src/
 ├── App.jsx                   les routes
 ├── components/
 │   ├── atoms/                Button, Badge, Message
-│   ├── molecules/            Pagination, SearchBar, FavoriteButton, FormField
-│   ├── organisms/            PokeCard, PokeGrid, NavBar, PokeForm, PokeSheet
+│   ├── molecules/            Pagination, SearchBar, FavoriteButton, FormField,
+│   │                         TypeBadges, Hero, Marquee
+│   ├── organisms/            PokeCard, PokeGrid, NavBar, PokeForm, PokeSheet, Footer
 │   └── templates/            MainLayout
 ├── pages/                    Home, PokeDetails, AddPoke, Favorites, NotFound
+├── data/elements.js          les 18 types (formulaire et bande qui défile)
 ├── services/api.js           instance axios et tous les appels à l'API
 └── store/favoris.js          store Zustand des favoris
 ```
@@ -93,8 +95,8 @@ src/
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------- |
 | Atomes     | les plus petits éléments, réutilisés partout                 | `Button` (3 variantes), `Badge` (le type), `Message`                |
 | Molécules  | quelques atomes réunis pour une fonction précise             | `Pagination` = 2 `Button` + le numéro de page                       |
-| Organismes | des blocs d'interface complets                               | `PokeCard` = image + `Badge` + lien + `FavoriteButton`              |
-| Template   | la mise en page commune, sans contenu                        | `MainLayout` = `NavBar` + zone où s'affiche la page                 |
+| Organismes | des blocs d'interface complets                               | `PokeCard` = image + `TypeBadges` + lien + `FavoriteButton`         |
+| Template   | la mise en page commune, sans contenu                        | `MainLayout` = `NavBar` + zone de la page + `Footer`                |
 | Pages      | un template rempli avec les vraies données (API, URL, store) | `Home` appelle l'API et passe la liste à `PokeGrid` et `Pagination` |
 
 **Les règles suivies :**
@@ -132,7 +134,7 @@ Dans le navigateur, l'onglet Réseau le confirme : `PokeDetails-….js` n'appara
 **En complément :**
 
 - Les images sont en `loading="lazy"` : les images hors de l'écran ne se téléchargent que quand on fait défiler la page. Elles ont aussi `width` et `height`, donc la page ne « saute » pas pendant leur chargement.
-- `<link rel="preconnect">` ouvre la connexion au serveur des images dès le départ.
+- `<link rel="preconnect">` ouvre la connexion au serveur des images, et à celui des polices, dès le départ. Les polices sont en `display=swap` : le texte s'affiche tout de suite avec une police de secours.
 - La pagination côté API n'envoie que 12 pokémons à la fois.
 
 ## 4. Stratégie KISS et qualité du code
@@ -144,8 +146,9 @@ Dans le navigateur, l'onglet Réseau le confirme : `PokeDetails-….js` n'appara
 - **L'API est sur la même adresse que le site** (`/api`) : pas de configuration CORS ni de variable d'environnement pour son adresse.
 - **Aucune base à installer en local** : les données sont en mémoire, et `npm run dev` lance tout.
 - **Zustand plutôt que Redux** : un store de 30 lignes, sans Provider, actions ni reducers.
-- **Des composants courts** : le plus long est le formulaire (106 lignes), la plupart en font moins de 30.
-- **Un seul fichier CSS**, rangé dans l'ordre des niveaux Atomic Design.
+- **Des composants courts** : le plus long est le formulaire (86 lignes), la plupart en font moins de 30.
+- **Un seul fichier CSS pour les composants** (`App.css`), rangé dans l'ordre des niveaux Atomic Design. Les couleurs et les polices sont des variables CSS dans `index.css`.
+- **La couleur de chaque type se choisit en CSS, sans JavaScript** : la carte et la fiche portent `data-type="Plante / Poison"`, et la règle `[data-type^="Plante"]` (« commence par Plante ») leur donne le vert. Le style s'inspire du site [Aardvark Book Club](https://www.aardvarkbookclub.com/) : couleurs vives, titres énormes, formes en pilule. Une seule couleur, le bleu `--accent`, est réservée à ce qui se clique (boutons, focus clavier, compteur des favoris).
 
 **Qualité du code :**
 

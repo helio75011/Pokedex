@@ -1,0 +1,21 @@
+// Les 18 types de pokémons : choix du formulaire d'ajout et bande qui défile sur l'accueil
+export const ELEMENTS = [
+  "Acier",
+  "Combat",
+  "Dragon",
+  "Eau",
+  "Électrik",
+  "Fée",
+  "Feu",
+  "Glace",
+  "Insecte",
+  "Normal",
+  "Plante",
+  "Poison",
+  "Psy",
+  "Roche",
+  "Sol",
+  "Spectre",
+  "Ténèbres",
+  "Vol",
+];
