@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import api from "../services/api";
-import PokeCard from "../components/PokeCard";
-import Pagination from "../components/Pagination";
+import Message from "../components/atoms/Message";
+import Pagination from "../components/molecules/Pagination";
+import SearchBar from "../components/molecules/SearchBar";
+import PokeGrid from "../components/organisms/PokeGrid";
+import { getPokemons } from "../services/api";
 
 const LIMIT = 12; // nombre de pokémons par page
 
@@ -14,26 +16,24 @@ function Home() {
   const recherche = searchParams.get("q") ?? "";
 
   const [pokemons, setPokemons] = useState([]); // les pokémons de la page affichée
-  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0); // nombre total de résultats
   const [loading, setLoading] = useState(true);
   const [erreur, setErreur] = useState(null);
+  const totalPages = Math.max(1, Math.ceil(total / LIMIT));
 
   useEffect(() => {
     let ignore = false; // devient true si une requête plus récente a été lancée
 
-    // axios construit l'URL : /poke?page=1&limit=12&q=...
-    api
-      .get("/poke", { params: { page, limit: LIMIT, q: recherche } })
-      .then((res) => {
+    getPokemons({ page, limit: LIMIT, recherche })
+      .then((resultat) => {
         if (ignore) return;
-        const total = Number(res.headers["x-total-count"]); // envoyé par l'API
-        setPokemons(res.data);
-        setTotalPages(Math.max(1, Math.ceil(total / LIMIT)));
+        setPokemons(resultat.pokemons);
+        setTotal(resultat.total);
         setLoading(false);
       })
       .catch(() => {
         if (ignore) return;
-        setErreur("Erreur lors du chargement des pokémons. L'API est-elle lancée ?");
+        setErreur("Erreur lors du chargement des pokémons. Réessaie dans un instant.");
         setLoading(false);
       });
 
@@ -57,36 +57,29 @@ function Home() {
     setSearchParams(texte ? { q: texte } : {}, { replace: true });
   }
 
+  const pret = !loading && !erreur;
+
   return (
-    <div>
+    <>
       <h1>Liste des pokémons</h1>
 
-      <input
-        className="recherche"
-        type="search"
-        placeholder="Rechercher un pokémon..."
-        aria-label="Rechercher un pokémon"
-        value={recherche}
-        onChange={(event) => changerRecherche(event.target.value)}
-      />
+      <SearchBar valeur={recherche} onChange={changerRecherche} total={pret ? total : null} />
 
-      {loading && <p className="message">Chargement...</p>}
+      {loading && <Message>Chargement...</Message>}
 
-      {erreur && <p className="message erreur">{erreur}</p>}
+      {erreur && <Message type="erreur">{erreur}</Message>}
 
-      {!loading && !erreur && pokemons.length === 0 && (
-        <p className="message">
-          {recherche ? `Aucun pokémon ne correspond à « ${recherche} ».` : "Aucun pokemon disponible."}
-        </p>
+      {pret && pokemons.length === 0 && (
+        <Message>
+          {recherche
+            ? `Aucun pokémon ne correspond à « ${recherche} ».`
+            : "Aucun pokemon disponible."}
+        </Message>
       )}
 
-      {!loading && !erreur && pokemons.length > 0 && (
+      {pret && pokemons.length > 0 && (
         <>
-          <div className="liste">
-            {pokemons.map((pokemon) => (
-              <PokeCard key={pokemon.id} pokemon={pokemon} />
-            ))}
-          </div>
+          <PokeGrid pokemons={pokemons} />
 
           <Pagination
             page={page}
@@ -98,7 +91,7 @@ function Home() {
           />
         </>
       )}
-    </div>
+    </>
   );
 }
 

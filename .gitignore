@@ -10,7 +10,12 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
 *.local
+
+# Vercel (configuration locale et variables d'environnement téléchargées)
+.vercel
+.env*
 
 # Editor directories and files
 .vscode/*

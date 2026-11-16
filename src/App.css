@@ -1,3 +1,129 @@
+/* Styles rangés comme les composants (Atomic Design) :
+   atomes → molécules → organismes → template et pages */
+
+/* ========== Atomes ========== */
+
+.bouton {
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bouton:disabled {
+  background: #c9d1db;
+  color: #52606d;
+  cursor: not-allowed;
+}
+
+.bouton--principal {
+  background: #c62828;
+  color: #fff;
+}
+
+.bouton--sombre {
+  display: inline-block;
+  background: #1f2933;
+  color: #fff;
+  text-decoration: none;
+}
+
+.bouton--sombre:hover {
+  background: #3e4c59;
+}
+
+.bouton--lien {
+  padding: 0;
+  background: none;
+  color: #1f2933;
+  text-decoration: underline;
+}
+
+.bouton--icone {
+  padding: 0 6px;
+  background: none;
+  color: #52606d;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.bouton--icone.est-favori {
+  color: #b7791f;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e8ecf2;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.message {
+  text-align: center;
+  font-style: italic;
+}
+
+.message--erreur {
+  color: #c62828;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ========== Molécules ========== */
+
+.barre-recherche {
+  max-width: 400px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.barre-recherche input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #c9d1db;
+  border-radius: 8px;
+}
+
+.barre-recherche__total {
+  margin: 8px 0 0;
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.champ input,
+.champ select {
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: normal;
+  border: 1px solid #c9d1db;
+  border-radius: 8px;
+}
+
+/* ========== Organismes ========== */
+
 .menu {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +133,7 @@
   background: #c62828;
 }
 
-.menu .logo {
+.menu__logo {
   margin-right: auto;
   color: #fff;
   font-size: 1.2rem;
@@ -20,135 +146,88 @@
   text-decoration: none;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu a.active {
   text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
-.app {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px 16px 48px;
-}
-
-h1 {
-  text-align: center;
+.menu__compteur {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #fff;
   color: #c62828;
-}
-
-.recherche {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 24px;
-  padding: 10px 14px;
-  font-size: 1rem;
-  border: 1px solid #c9d1db;
-  border-radius: 8px;
-}
-
-.message {
+  font-size: 0.85rem;
   text-align: center;
-  font-style: italic;
 }
 
-.erreur {
-  color: #c62828;
-  font-style: normal;
-  font-weight: 600;
-}
-
-.liste {
+.grille {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;
 }
 
-.pokemon {
-  background: #fff;
-  border-radius: 12px;
+.carte {
+  position: relative;
   padding: 16px;
   text-align: center;
+  background: #fff;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
-.pokemon img {
+.carte:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.carte img {
   display: block;
   margin: 0 auto 8px;
 }
 
-.pokemon h3 {
+.carte h3 {
   margin: 0 0 8px;
   font-size: 1.2rem;
 }
 
-.pokemon p {
-  margin: 8px 0 0;
-}
-
-.element {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: #e8ecf2;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.bouton {
+.carte__lien {
   display: block;
   width: fit-content;
   margin: 12px auto 0;
-  padding: 6px 14px;
-  border-radius: 8px;
-  background: #1f2933;
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
 }
 
-.bouton:hover {
-  background: #3e4c59;
+/* Le lien s'étend sur toute la carte : on peut cliquer n'importe où dessus */
+.carte__lien::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
 }
 
-.pagination {
+/* L'étoile reste au-dessus du lien, pour pouvoir cliquer dessus */
+.carte .bouton--icone {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+
+.formulaire {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.pagination button,
-.formulaire button {
-  padding: 8px 16px;
-  font: inherit;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  background: #c62828;
-  color: #fff;
-  cursor: pointer;
-}
-
-.pagination button:disabled,
-.formulaire button:disabled {
-  background: #c9d1db;
-  color: #52606d;
-  cursor: not-allowed;
-}
-
-.retour {
-  padding: 0;
-  border: none;
-  background: none;
-  color: #1f2933;
-  font: inherit;
-  font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .fiche {
@@ -173,18 +252,24 @@ h1 {
   min-width: 240px;
 }
 
+.fiche__titre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .fiche h1 {
   margin: 4px 0;
   text-align: left;
 }
 
-.numero,
-.categorie {
+.fiche__numero,
+.fiche__categorie {
   margin: 0;
   color: #52606d;
 }
 
-.categorie {
+.fiche__categorie {
   margin-bottom: 12px;
   font-style: italic;
 }
@@ -204,38 +289,34 @@ h1 {
   margin: 0;
 }
 
-.description {
+.fiche__description {
   line-height: 1.5;
 }
 
-.formulaire {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 420px;
+/* ========== Template et pages ========== */
+
+.contenu {
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 24px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px 16px 48px;
 }
 
-.formulaire h1 {
-  margin: 0 0 8px;
+h1 {
+  text-align: center;
+  color: #c62828;
 }
 
-.formulaire label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-weight: 600;
+.centre {
+  text-align: center;
 }
 
-.formulaire input,
-.formulaire select {
-  padding: 8px 12px;
-  font: inherit;
-  font-weight: normal;
-  border: 1px solid #c9d1db;
-  border-radius: 8px;
+/* Pas d'animation pour les personnes qui ont demandé moins de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .carte {
+    transition: none;
+  }
+
+  .carte:hover {
+    transform: none;
+  }
 }

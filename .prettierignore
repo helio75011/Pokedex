@@ -1,0 +1,6 @@
+dist
+coverage
+package-lock.json
+
+# Données générées : une ligne par pokémon, plus lisible que le format de Prettier
+backend/donnees-initiales.js
