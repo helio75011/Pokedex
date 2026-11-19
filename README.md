@@ -2,8 +2,8 @@
 
 TP « Développement frontend avancé » : un Pokédex en React, avec React Router, axios, Zustand, des tests Vitest et une mise en ligne sur Vercel.
 
-- **Site en ligne :** _lien à ajouter après la mise en ligne_
-- **Dépôt GitHub :** _lien à ajouter_
+- **Site en ligne :** https://pokedex-snowy-xi.vercel.app
+- **Dépôt GitHub :** https://github.com/helio75011/Pokedex
 
 ## Fonctionnalités
 
@@ -239,7 +239,7 @@ git push sur main
 1. Sur vercel.com : **Add New → Project**, puis importer le dépôt GitHub. Le preset Vite est détecté tout seul.
 2. Dans le projet : **Storage → Create Database → Upstash for Redis** (offre gratuite), puis **Connect** au projet et **Redeploy**. Les variables `KV_REST_API_URL` / `KV_REST_API_TOKEN` (ou `UPSTASH_REDIS_REST_*`) sont ajoutées automatiquement.
 3. **Settings → Build and Deployment → Deployment Checks → Add Checks → GitHub**, puis choisir « Lint, tests et build ».
-4. Vérification : `https://<adresse-du-site>/api/sante` doit répondre `"stockage": "redis"`. Au premier appel, l'API remplit la base avec les 151 pokémons.
+4. Vérification : https://pokedex-snowy-xi.vercel.app/api/sante doit répondre `"stockage": "redis"`. Au premier appel, l'API remplit la base avec les 151 pokémons.
 
 ## Correspondance avec la grille d'évaluation
 
